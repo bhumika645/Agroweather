@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#176b45">
+  <title>AgroWeather | Weather & Farming Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="weather-clear">
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="AgroWeather home">
+      <span class="brand-mark">A</span>
+      <span>Agro<span class="brand-light">Weather</span><small>Weather that helps you plan</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#advisor">Farm advisor</a>
+      <a href="#planner">Crop planner</a>
+    </nav>
+    <button id="refreshBtn" class="button button-outline refresh-button" type="button">Refresh weather</button>
+  </header>
+
+  <main id="top" class="page-wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">LOCAL WEATHER. PRACTICAL DECISIONS.</p>
+        <h1 id="hero-title">Plan your day.<br><span>Protect your crop.</span></h1>
+        <p class="hero-description">Weather forecasts, useful alerts and crop activity guidance in one simple dashboard.</p>
+        <form id="searchForm" class="search-form">
+          <label class="sr-only" for="cityInput">Search city or district</label>
+          <input id="cityInput" type="search" placeholder="Search a city or district, e.g. Mandya" value="Mandya" autocomplete="off" required>
+          <button class="button button-primary" type="submit">Search weather</button>
+        </form>
+        <p id="statusMessage" class="status-message" role="status">Search for a location to load its weather.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+        <div class="field field-back"></div><div class="field field-front"></div>
+        <div class="art-label"><span class="art-dot"></span> Weather-aware farming</div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section-block">
+      <div class="section-heading">
+        <div><p class="eyebrow">YOUR LOCAL CONDITIONS</p><h2>Weather dashboard</h2></div>
+        <p id="locationLabel" class="location-label">Mandya, Karnataka</p>
+      </div>
+
+      <div class="weather-layout">
+        <article class="current-card panel">
+          <div class="current-top"><div><p class="muted-label">CURRENT WEATHER</p><p id="currentCondition" class="condition-text">Loading weather…</p></div><div id="weatherSymbol" class="weather-symbol" aria-hidden="true">--</div></div>
+          <div class="temperature-line"><span id="currentTemp">--</span><span class="degree">°C</span></div>
+          <p id="feelsLike" class="muted-text">Feels like --°C</p>
+          <div class="current-divider"></div>
+          <div class="minmax"><span>Today’s range</span><strong id="todayRange">--° / --°</strong></div>
+          <div class="minmax"><span>Local time</span><strong id="localDateTime">--</strong></div>
+        </article>
+
+        <div class="metric-grid">
+          <article class="metric-card panel"><div class="metric-icon">H</div><p class="metric-label">Humidity</p><strong id="humidityValue">--%</strong><p class="metric-note">Moisture in the air</p></article>
+          <article class="metric-card panel"><div class="metric-icon">W</div><p class="metric-label">Wind speed</p><strong id="windValue">-- km/h</strong><p class="metric-note">Near-surface wind</p></article>
+          <article class="metric-card panel"><div class="metric-icon">R</div><p class="metric-label">Rain probability</p><strong id="rainValue">--%</strong><p class="metric-note">Forecast for today</p></article>
+          <article class="metric-card panel"><div class="metric-icon">UV</div><p class="metric-label">UV index</p><strong id="uvValue">--</strong><p class="metric-note">Sun exposure indicator</p></article>
+        </div>
+      </div>
+
+      <div class="sun-strip panel">
+        <div><span class="sun-icon">SUNRISE</span><p class="muted-text">Sunrise</p><strong id="sunriseValue">--:--</strong></div>
+        <div class="sun-track"><span class="sun-track-line"></span><span class="sun-track-orb"></span></div>
+        <div class="sunset-info"><span class="sun-icon">SUNSET</span><p class="muted-text">Sunset</p><strong id="sunsetValue">--:--</strong></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading"><div><p class="eyebrow">PLAN AHEAD</p><h2>5-day forecast</h2></div><p class="section-note">Forecast values can change as new data arrives.</p></div>
+      <div id="forecastGrid" class="forecast-grid"><div class="empty-state panel">Weather forecast will appear after you search for a location.</div></div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading"><div><p class="eyebrow">BEFORE YOU HEAD OUT</p><h2>Smart weather alerts</h2></div><p class="section-note">Rule-based guidance from the forecast</p></div>
+      <div id="alertsList" class="alerts-list"><div class="empty-state panel">Alerts will appear here after weather loads.</div></div>
+    </section>
+
+    <section id="advisor" class="section-block advisor-section">
+      <div class="section-heading"><div><p class="eyebrow">WEATHER TO ACTION</p><h2>Smart farming advisor</h2></div><p class="section-note">Practical suggestions based on current forecast conditions</p></div>
+      <div class="advisor-intro panel"><div class="advisor-badge">FIELD NOTES</div><div><h3>Your weather-aware advisory feed</h3><p>Recommendations are generated from weather thresholds. They are general precautions, not official warnings or a diagnosis of crop disease.</p></div></div>
+      <div id="advisorFeed" class="advisor-feed"><div class="empty-state panel">Your advisory feed will appear here.</div></div>
+    </section>
+
+    <section id="planner" class="section-block planner-section">
+      <div class="section-heading"><div><p class="eyebrow">SEASONAL GUIDANCE</p><h2>Crop activity planner</h2></div><p class="section-note">Choose a location, crop and variety</p></div>
+      <div class="planner-layout">
+        <form id="plannerForm" class="planner-controls panel">
+          <label for="plannerLocation">District / region</label>
+          <select id="plannerLocation">
+            <option value="mandya">Mandya, Karnataka</option>
+            <option value="kodagu">Kodagu, Karnataka</option>
+            <option value="chikkamagaluru">Chikkamagaluru, Karnataka</option>
+            <option value="hassan">Hassan, Karnataka</option>
+            <option value="mysuru">Mysuru, Karnataka</option>
+            <option value="bengaluru">Bengaluru, Karnataka</option>
+          </select>
+          <label for="plannerCrop">Crop</label>
+          <select id="plannerCrop">
+            <option value="coffee">Coffee</option>
+            <option value="paddy">Paddy (rice)</option>
+            <option value="ragi">Ragi (finger millet)</option>
+            <option value="tomato">Tomato</option>
+            <option value="banana">Banana</option>
+          </select>
+          <label for="plannerVariety">Coffee variety (for coffee only)</label>
+          <select id="plannerVariety"><option value="arabica">Arabica</option><option value="robusta">Robusta</option></select>
+          <button class="button button-primary" type="submit">Generate crop calendar</button>
+          <p class="form-hint">Calendar entries are general planning windows. Verify local recommendations before making farm-management decisions.</p>
+        </form>
+        <div id="cropCalendarResult" class="calendar-result" aria-live="polite">
+          <div class="empty-state panel">Your planting, fertilizing and harvesting windows will appear here.</div>
+        </div>
+      </div>
+    </section>
+
+
+  <footer class="footer"><span>AgroWeather</span><span>Weather data: Open-Meteo</span></footer>
+  <script src="java.js"></script>
+</body>
+</html>
